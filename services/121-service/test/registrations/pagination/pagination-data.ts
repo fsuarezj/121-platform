@@ -336,3 +336,13 @@ export const registrationsPvExcel = [
   registrationPvExcel3,
   registrationPvExcel4,
 ];
+
+export const registrationNedbank = {
+  referenceId: 'registration-nedbank-1',
+  phoneNumber: '39231855170',
+  preferredLanguage: LanguageEnum.en,
+  paymentAmountMultiplier: 1,
+  programFinancialServiceProviderConfigurationName:
+    FinancialServiceProviders.nedbank,
+  maxPayments: 3,
+};

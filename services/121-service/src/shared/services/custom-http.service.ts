@@ -1,9 +1,13 @@
 import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
+import { AxiosRequestConfig } from '@nestjs/terminus/dist/health-indicator/http/axios.interfaces';
 import { defaultClient, TelemetryClient } from 'applicationinsights';
+import fs from 'fs';
+import * as https from 'https';
 import { isPlainObject } from 'lodash';
 import { catchError, lastValueFrom, map, of } from 'rxjs';
 
+import { DEBUG } from '@121-service/src/config';
 import { CookieNames } from '@121-service/src/shared/enum/cookie.enums';
 import { maskValueKeepStart } from '@121-service/src/utils/mask-value.helper';
 
@@ -132,20 +136,28 @@ export class CustomHttpService {
     url,
     payload,
     headers,
+    httpsAgent,
   }: {
     method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
     url: string;
     payload?: unknown;
     headers?: Header[];
+    httpsAgent?: https.Agent;
   }): Promise<T> {
+    const params: AxiosRequestConfig = {
+      method,
+      url,
+      headers: this.createHeaders(headers),
+    };
+    if (payload) {
+      params.data = payload; // If payload is null on a GET, axios will throw an error
+    }
+    if (httpsAgent) {
+      params.httpsAgent = httpsAgent;
+    }
     return await lastValueFrom(
       this.httpService
-        .request<T>({
-          method,
-          url,
-          data: payload,
-          headers: this.createHeaders(headers),
-        })
+        .request<T>(params) //
         .pipe(
           map((response) => {
             this.logMessageRequest({ headers, url, payload }, response);
@@ -216,6 +228,9 @@ export class CustomHttpService {
     request: Partial<Request>,
     error: Partial<Response>,
   ): void {
+    if (DEBUG) {
+      console.log(error.data);
+    }
     if (this.defaultClient) {
       try {
         const requestPayload = this.stringify(
@@ -242,6 +257,22 @@ export class CustomHttpService {
         console.log('An error occured in logErrorRequest: ', error);
       }
     }
+  }
+
+  /**
+   * Create an HTTPS agent with a certificate.
+   * @param certificatePath The path to the certificate.
+   * @param password The passphrase for the certificate.
+   * @returns The HTTPS agent.
+   */
+  public createHttpsAgentWithCertificate(
+    certificatePath: string,
+    password?: string,
+  ): https.Agent {
+    return new https.Agent({
+      pfx: fs.readFileSync(certificatePath),
+      passphrase: password,
+    });
   }
 
   private flushLogs(methodName: string): void {
