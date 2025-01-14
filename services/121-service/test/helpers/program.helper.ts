@@ -418,7 +418,7 @@ export async function startCbeValidationProcess(
   accessToken: string,
 ): Promise<request.Response> {
   return await getServer()
-    .post(
+    .put(
       `/programs/${programId}/financial-service-providers/commercial-bank-ethiopia/account-enquiries`,
     )
     .set('Cookie', [accessToken]);
