@@ -45,7 +45,7 @@ export class ColoredChipComponent {
       case 'green':
         return `${baseClass} bg-green-100 text-green-700`;
       case 'purple':
-        return `${baseClass} bg-purple-100 text-purple-700`;
+        return `${baseClass} bg-purple-100 text-purple-900`;
       case 'red':
         return `${baseClass} bg-red-100 text-red-700`;
       case 'orange':

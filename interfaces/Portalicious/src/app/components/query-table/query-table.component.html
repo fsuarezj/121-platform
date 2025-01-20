@@ -161,7 +161,12 @@
     let-item
     let-expanded="expanded"
   >
-    <tr [pContextMenuRow]="item">
+    <tr
+      [pContextMenuRow]="item"
+      [ngClass]="{
+        'bg-purple-50': expanded,
+      }"
+    >
       @if (enableSelection()) {
         <td style="width: 0">
           @if (selectAll()) {

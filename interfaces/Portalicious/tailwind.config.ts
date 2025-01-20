@@ -101,6 +101,7 @@ export default {
         'project-payment-wide': '24rem 1fr',
       },
       boxShadow: {
+        cards: '0px 4px 14px 0px #0000001A',
         menu: '0px 2px 12px 0px #0000001a',
         'project-menu': '0px 4px 14px 0px #0000001A',
         'payment-stepper': '2px 0px 10px 0px #0000000F',

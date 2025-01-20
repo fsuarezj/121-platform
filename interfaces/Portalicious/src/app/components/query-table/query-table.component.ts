@@ -1,4 +1,9 @@
-import { DatePipe, NgComponentOutlet, NgTemplateOutlet } from '@angular/common';
+import {
+  DatePipe,
+  NgClass,
+  NgComponentOutlet,
+  NgTemplateOutlet,
+} from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -112,6 +117,7 @@ export type QueryTableSelectionEvent<TData> = { selectAll: true } | TData[];
     QueryTableGlobalSearchComponent,
     QueryTableColumnManagementComponent,
     NgTemplateOutlet,
+    NgClass,
   ],
   providers: [ToastService],
   templateUrl: './query-table.component.html',

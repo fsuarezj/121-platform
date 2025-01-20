@@ -55,6 +55,7 @@ const AppTheme = definePreset(Aura, {
           hoverColor: colors.purple.DEFAULT,
         },
         text: {
+          color: colors.black.DEFAULT,
           hoverColor: colors.purple.DEFAULT,
         },
         highlight: {
@@ -64,12 +65,16 @@ const AppTheme = definePreset(Aura, {
           focusColor: colors.purple.DEFAULT,
         },
         formField: {
-          hoverBorderColor: colors.purple.DEFAULT,
+          color: colors.black.DEFAULT,
+          focusBorderColor: colors.purple[500],
+          hoverBorderColor: colors.purple[500],
           invalidBorderColor: colors.red[500],
           invalidPlaceholder: colors.red[500],
         },
         navigation: {
           item: {
+            iconColor: colors.black.DEFAULT,
+            iconFocusColor: colors.purple.DEFAULT,
             focusBackground: colors.purple[100],
             activeBackground: colors.purple[100],
           },
@@ -79,18 +84,79 @@ const AppTheme = definePreset(Aura, {
     focusRing: {
       color: colors.purple.DEFAULT,
     },
+    borderRadius: {
+      // used by cards
+      xl: '1.125rem',
+    },
   },
   components: {
     button: {
+      paddingX: '1.125rem',
+      paddingY: '0.6rem',
+      sm: {
+        paddingX: '1rem',
+        paddingY: '0.25rem',
+      },
       text: {
         primary: {
           color: colors.black.DEFAULT,
         },
       },
     },
+    card: {
+      shadow: tailwindConfig.theme.extend.boxShadow.cards,
+    },
+    datatable: {
+      body: {
+        cell: {
+          padding: '0.625rem 1rem',
+        },
+      },
+    },
     message: {
       colorScheme: {
         light: severityVariants,
+      },
+    },
+    radiobutton: {
+      colorScheme: {
+        light: {
+          icon: {
+            checked: {
+              color: colors.purple.DEFAULT,
+              hover: {
+                color: colors.purple.DEFAULT,
+              },
+            },
+          },
+          checked: {
+            background: colors.white,
+            hover: {
+              background: colors.white,
+            },
+          },
+        },
+      },
+    },
+    scrollpanel: {
+      colorScheme: {
+        light: {
+          bar: {
+            background: colors.grey[700],
+          },
+        },
+      },
+      bar: {
+        size: '0.5rem',
+      },
+    },
+    tabs: {
+      tab: {
+        color: colors.black.DEFAULT,
+        hover: {
+          color: colors.grey[700],
+          borderColor: colors.grey[700],
+        },
       },
     },
     toast: {
